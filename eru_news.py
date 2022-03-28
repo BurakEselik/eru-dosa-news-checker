@@ -11,7 +11,6 @@ import news
 import mail
 from news import BASE_URL
 from time import sleep
-#import webbrowser
 
 
 def getDifferenceNumber() -> int:
@@ -33,8 +32,9 @@ def setContent(df_number) -> dict:
 
 
 def sendMail(content_dict: dict) -> None:
-    new_mail = mail.SendMail()
     for i in range(1, len(content_dict)+1):
+        new_mail = mail.SendMail()
+        print(new_mail)
         title = content_dict[str(i)]["title"]
         link = BASE_URL[:-1] + content_dict[str(i)]["link"]
         new_mail.setMessage(title=title, link=link) 
@@ -48,15 +48,14 @@ def main() -> None:
     if df_number > 1:
         content_dict = setContent(df_number=df_number)
         sendMail(content_dict)
-        #webbrowser.open("https://youtube.com")
     else:
-        #webbrowser.open("https://cleantecharticles.com")
         pass
 
 
 if __name__ == "__main__":
     while 1:
         main()
-        from settings import repeat_control_timer
-        timer = repeat_control_timer
-        sleep(timer)
+        with open("settings.json", "r", encoding="utf-8") as settings:
+            setting = json.load(settings)
+            timer = setting["repeat_timer"]
+            sleep(timer)
