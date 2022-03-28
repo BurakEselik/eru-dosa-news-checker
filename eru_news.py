@@ -6,11 +6,13 @@ And send mail to given e-mail address that the latest announcement.
 
 #date: 3 march 2022
 #author: BurakEselik
-import json
 import news
 import mail
 from news import BASE_URL
 from time import sleep
+import json
+import datetime
+from plyer import notification
 
 
 def getDifferenceNumber() -> int:
@@ -34,7 +36,6 @@ def setContent(df_number) -> dict:
 def sendMail(content_dict: dict) -> None:
     for i in range(1, len(content_dict)+1):
         new_mail = mail.SendMail()
-        print(new_mail)
         title = content_dict[str(i)]["title"]
         link = BASE_URL[:-1] + content_dict[str(i)]["link"]
         new_mail.setMessage(title=title, link=link) 
@@ -49,13 +50,26 @@ def main() -> None:
         content_dict = setContent(df_number=df_number)
         sendMail(content_dict)
     else:
-        pass
+        current_time = datetime.datetime.now()
+        with open("log.txt", "a", encoding="utf-8") as log:
+            log.write(f"\nThere is no new announcement: {current_time}")
+            del current_time
 
 
 if __name__ == "__main__":
     while 1:
-        main()
-        with open("settings.json", "r", encoding="utf-8") as settings:
-            setting = json.load(settings)
-            timer = setting["repeat_timer"]
-            sleep(timer)
+        try:
+            main()
+            with open("settings.json", "r", encoding="utf-8") as settings:
+                setting = json.load(settings)
+                timer = setting["repeat_timer"]
+                sleep(timer)
+        except Exception as e:
+            with open("log.txt", "a", encoding="utf-8") as log:
+                log.write(f"\nProgram closed because of this error: {e}")
+                notification.notify(
+                title = "ERU NEWS STOPED",
+                message=" Eru news checker program just closed! ",
+                timeout=10)
+
+            exit()

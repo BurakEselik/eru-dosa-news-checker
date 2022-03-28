@@ -1,4 +1,5 @@
 {
-    "receiver_mail": "eselik.burak@gmail.com",
-    "repeat_timer": 60
+    "receiver_mail": "",
+    "repeat_timer": 20,
+    "send_mail_to_developer": true
 }
