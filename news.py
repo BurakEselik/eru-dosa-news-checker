@@ -45,7 +45,7 @@ class News:
             """
             Before save the new datas save the old datas in old_news.json
             """
-            with open("new_news.json", "r") as n_outfile:
+            with open("new_news.json", "r", encoding="utf-8") as n_outfile:
                 data = json.load(n_outfile)
                 data = json.dumps(data, indent=4)
                 with open('old_news.json', 'w', encoding="utf-8") as o_outfile:
