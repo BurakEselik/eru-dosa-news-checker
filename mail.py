@@ -10,7 +10,8 @@ class SendMail:
 
    SENDER_EMAIL = os.environ.get("MAIL_NAME")
    PASSWORD = os.environ.get("MAIL_PASS")
-   RECEIVER_EMAIL = "eselik.burak@gmail.com"
+   from settings import receiver_mail
+   RECEIVER_EMAIL = receiver_mail
 
    message = EmailMessage()
 
