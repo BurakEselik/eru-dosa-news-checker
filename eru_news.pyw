@@ -13,7 +13,7 @@ from time import sleep
 import json
 import datetime
 from plyer import notification
-
+import sys
 
 def getDifferenceNumber() -> int:
     with open("old_news.json", "r", encoding="utf-8") as old_news, open("new_news.json", "r", encoding="utf-8") as new_news:
@@ -70,6 +70,6 @@ if __name__ == "__main__":
                 notification.notify(
                 title = "ERU NEWS STOPED",
                 message=" Eru news checker program just closed! ",
-                timeout=10)
+                timeout=100)
 
-            exit()
+            sys.exit()

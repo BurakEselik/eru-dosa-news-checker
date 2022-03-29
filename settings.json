@@ -1,5 +1,5 @@
 {
     "receiver_mail": "",
-    "repeat_timer": 20,
+    "repeat_timer": 300,
     "send_mail_to_developer": true
 }
