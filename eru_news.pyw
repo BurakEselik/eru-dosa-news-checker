@@ -22,6 +22,14 @@ def getDifferenceNumber() -> int:
         for i in range(1, 11):
             if old["1"]["date"] == new[str(i)]["date"] and old["1"]["title"] == new[str(i)]["title"]:
                 return i
+        else:
+            with open("log.txt", "a", encoding="utf-8") as log:
+                log.write(f"\nLast announcements deleted or updated")
+                notification.notify(
+                    title="ERU NEWS",
+                    message=" Last announcements deleted or updated "
+                    timeout=90)
+            return 0
 
 
 def setContent(df_number) -> dict:
